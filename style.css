@@ -1,0 +1,83 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background: #121212;
+    color: white;
+}
+
+.beforeGame {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.playerDivImg {
+    position: relative;
+}
+
+.playerDivImg img{
+    border-radius: 50%;
+    height: 400px;
+    width: 400px;
+}
+
+.playerDivName input {
+    width: 100%;
+    outline: none;
+    height: 30px;
+    background: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 0 13px;
+}
+
+h1.vs{
+    position: absolute;
+    left: 50%;
+    font-size: 70px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.leftArrow, .rightArrow {
+    position: absolute;
+    font-size: 40px;
+    top: 50%;
+    cursor: pointer;
+    color: white;
+}
+
+.leftArrow {
+    left: 0;
+}
+
+.rightArrow {
+    right: 0;
+}
+
+.play {
+    background: green;
+    color: white;
+    border: 1px solid white;
+    border-radius: 34px;
+    outline: none;
+    position: absolute;
+    left: 5%;
+    right: 0;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 8%;
+    width: 10%;
+    height: 5%;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
