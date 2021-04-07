@@ -5,11 +5,25 @@
 }
 
 body {
+    background: #121212;
+    color: white;
+}
+
+.beforeGameLayout {
     display: flex;
     align-items: center;
     height: 100vh;
-    background: #121212;
-    color: white;
+}
+
+.title {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .beforeGame {
@@ -41,7 +55,10 @@ body {
 
 h1.vs{
     position: absolute;
-    left: 50%;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
     font-size: 70px;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -62,6 +79,7 @@ h1.vs{
     right: 0;
 }
 
+
 .play {
     background: green;
     color: white;
@@ -69,15 +87,45 @@ h1.vs{
     border-radius: 34px;
     outline: none;
     position: absolute;
-    left: 5%;
-    right: 0;
     display: block;
-    text-align: center;
+    left: 0;
+    right: 0;
     margin: auto;
     margin-top: 8%;
     width: 10%;
     height: 5%;
     font-size: 30px;
     font-family: 'Times New Roman', Times, serif;
+    cursor: pointer;
+    transition: 400ms;
 }
 
+.play:hover {
+    background-color: black;
+    color: white;
+}
+
+.play:active {
+    background: red;
+}
+
+.gameLayout {
+    display: grid;
+    align-content: center;
+    height: 100vh;
+    justify-content: center;
+    grid-template-columns: repeat(3, 100px);
+    grid-row-gap: 2px;
+    grid-column-gap: 2px;
+}
+
+.gameBoardDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: #B0B3B8;
+    color: black;
+    font-size: 50px;
+}
