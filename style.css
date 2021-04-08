@@ -66,7 +66,7 @@ h1.vs{
 .leftArrow, .rightArrow {
     position: absolute;
     font-size: 40px;
-    top: 50%;
+    bottom: 0;
     cursor: pointer;
     color: white;
 }
@@ -78,6 +78,8 @@ h1.vs{
 .rightArrow {
     right: 0;
 }
+
+
 
 
 .play {

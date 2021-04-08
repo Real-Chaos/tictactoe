@@ -75,7 +75,7 @@ return {placeMarker}
 })();
 
 
-const playerFactory = (name, marker) => {
+const playerFactory = (name, marker, img) => {
     return {name, marker}
 }
 
@@ -119,17 +119,19 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
     ]
 
     for(let i=0; i<winningConditions.length; i++) {
+
        let checkWinnerPlayer1 = winningConditions[i].filter(x => x === player1Marker);
        let checkWinnerPlayer2 = winningConditions[i].filter(x => x === player2Marker);
-       if(checkWinnerPlayer1.length === 3) {
+
+       if(checkWinnerPlayer1.length === 3 && gameBoardArray.length <= 9) {
             player1Won()
        }
 
-       else if(checkWinnerPlayer2.length === 3) {
+       else if(checkWinnerPlayer2.length === 3 && gameBoardArray.length <= 9) {
             player2Won()
         }
 
-        else if(gameBoardArray.length === 9) {
+        else if(gameBoardArray.length === 9 && winner.textContent !== `${player1Name} Won!` && winner.textContent !== `${player2Name} Won!`) {
             tie()
         }
     }
@@ -139,6 +141,23 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
         return false;
     });
 }
+
+
+// AI STUFF -------------------------------------------------------------------------------------------------------------------------------------------------
+
+function creatingAI() {
+    const playerDivImg = document.querySelectorAll('.playerDivImg img');
+    const changeImg = Array.from(playerDivImg);
+    const profileImages = ['images/player2Icon.gif','images/robotIcon.gif'];
+    const bob = playerFactory('Bob', 'O');
+    const rightArrow = document.querySelector('.rightArrow');
+    const leftArrow = document.querySelector('.leftArrow')
+    rightArrow.addEventListener('click', ()=> {
+        changeImg[1].src = profileImages[1];
+    });
+}
+
+creatingAI()
 
 
 
