@@ -51,7 +51,7 @@ const createGameBoard = (() => {
                         gameBoardArray.push(player1Marker)
                         gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
                         turnTeller.textContent = `${player2Name}, Make Your Move`;
-                        console.log(gameBoardArray)
+                        // console.log(gameBoardArray)
                         turn = false;
                         addedOnce = true;
                         
@@ -61,50 +61,83 @@ const createGameBoard = (() => {
                         gameBoardArray.push(player2Marker)
                         gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
                         turnTeller.textContent = `${player1Name}, Make Your Move`;
-                        console.log(gameBoardArray);
+                        // console.log(gameBoardArray);
                         addedOnce = null;
                         turn = true;
                        
                     }
-                    winner(gameBoard, player1Name)
+                    winner(gameBoard, player1Name, player2Name, player1Marker, player2Marker, gameBoardArray)
                 })
-                // winner(gameBoardArray)
             }
         }
-// winner(gameBoardArray)
     
 return {placeMarker}
 })();
 
 
 const playerFactory = (name, marker) => {
-    console.log({name, marker})
     return {name, marker}
 }
 
-function winner(gameBoard, player1Name) {
+function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marker, gameBoardArray) {
     const winner = document.querySelector('.winner');
     const gameLayout = document.querySelector('.gameLayout');
     const turnTeller = document.querySelector('.turnTeller');
     const restart = document.querySelector('.restart')
     winner.textContent = '';
-    if(gameBoard[0].textContent === 'X' && gameBoard[1].textContent === 'X' && gameBoard[2].textContent === 'X') {
-        winner.textContent = `${player1Name} Won!`;
+
+    function afterWin() {
         gameLayout.style.display = 'none';
         turnTeller.style.display = 'none';
         restart.style.display = 'block';
     }
-    else if(gameBoard[3].textContent === 'X' && gameBoard[4].textContent === 'X' && gameBoard[5].textContent === 'X') {
-        console.log('winner')
+
+    function player1Won() {
+        winner.textContent = `${player1Name} Won!`;
+        afterWin()
     }
-    else if(gameBoard[6].textContent === 'X' && gameBoard[7].textContent === 'X' && gameBoard[8].textContent === 'X') {
-        console.log('winner')
+
+    function player2Won() {
+        winner.textContent = `${player2Name} Won!`;
+        afterWin()
+    }
+
+    function tie() {
+        winner.textContent = `Tie!`;
+        afterWin();
+    }
+
+    let winningConditions = [
+        [gameBoard[0].textContent, gameBoard[1].textContent, gameBoard[2].textContent],
+        [gameBoard[3].textContent, gameBoard[4].textContent, gameBoard[5].textContent],
+        [gameBoard[6].textContent, gameBoard[7].textContent, gameBoard[8].textContent],
+        [gameBoard[0].textContent, gameBoard[4].textContent, gameBoard[8].textContent],
+        [gameBoard[2].textContent, gameBoard[4].textContent, gameBoard[6].textContent],
+        [gameBoard[0].textContent, gameBoard[3].textContent, gameBoard[6].textContent],
+        [gameBoard[1].textContent, gameBoard[4].textContent, gameBoard[7].textContent],
+        [gameBoard[2].textContent, gameBoard[5].textContent, gameBoard[8].textContent]
+    ]
+
+    for(let i=0; i<winningConditions.length; i++) {
+       let checkWinnerPlayer1 = winningConditions[i].filter(x => x === player1Marker);
+       let checkWinnerPlayer2 = winningConditions[i].filter(x => x === player2Marker);
+       if(checkWinnerPlayer1.length === 3) {
+            player1Won()
+       }
+
+       else if(checkWinnerPlayer2.length === 3) {
+            player2Won()
+        }
+
+        else if(gameBoardArray.length === 9) {
+            tie()
+        }
     }
 
     restart.addEventListener('click', ()=> {
         location.reload();
         return false;
-    })
+    });
 }
 
 
