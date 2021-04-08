@@ -3,14 +3,26 @@
 function startGame() {
     const playButton = document.querySelector('.play');
     const beforeGame = document.querySelector('.beforeGameLayout');
+    const gameLayout = document.querySelector('.gameLayout');
+    gameLayout.style.display = 'none';
     const play = playButton.addEventListener('click', ()=> {
         beforeGame.style.display = 'none';
-        let player1 = playGame(playerName = document.querySelector('.playerDivName input').value, 'X');
-        let player2 = playGame(playerName = document.querySelector('.player2Name input').value, 'O');
-    })
+        let player1 = playerFactory(playerName = document.querySelector('.playerDivName input').value, 'X');
+        let player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O');
+        if(player1.name === '') {
+            player1.name = 'Player 1'
+        }
+        if(player2.name === '') {
+            player2.name = 'Player 2'
+        }
+        gameLayout.style.display = 'grid';
+        createGameBoard.placeMarker(player1.name, player2.name, player1.marker, player2.marker);
+        
+    });
 }
 
 startGame()
+
 
 // Game Board ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -25,45 +37,75 @@ const createGameBoard = (() => {
         gameBoardDiv.classList.add('gameBoardDiv');
         gameLayout.appendChild(gameBoardDiv);
         gameBoard[i] = gameBoardDiv;
-        gameBoardArray.push(gameBoard[i].textContent);
     }
 
-    for(let i=0; i < Object.keys(gameBoard).length; i++) {
-        gameBoard[i].addEventListener('click', ()=> {
-            gameBoard[i].textContent = gameBoardArray[i];
-        })
-    }
+    const placeMarker = (player1Name, player2Name, player1Marker, player2Marker) => {
+            let turn = true;
+            // let addedOnce = false;
+            const turnTeller = document.querySelector('.turnTeller');
+            for(let i=0; i < Object.keys(gameBoard).length; i++) {
+                turnTeller.textContent = `${player1Name}, Make Your Move`;
+                let addedOnce = false;
+                gameBoard[i].addEventListener('click', ()=> {
+                    if(turn === true && addedOnce === false) {
+                        gameBoardArray.push(player1Marker)
+                        gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
+                        turnTeller.textContent = `${player2Name}, Make Your Move`;
+                        console.log(gameBoardArray)
+                        turn = false;
+                        addedOnce = true;
+                        
+                    }
 
-    placeMarker(gameBoardArray)
-
+                    else if(turn === false && addedOnce === false) {
+                        gameBoardArray.push(player2Marker)
+                        gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
+                        turnTeller.textContent = `${player1Name}, Make Your Move`;
+                        console.log(gameBoardArray);
+                        addedOnce = null;
+                        turn = true;
+                       
+                    }
+                    winner(gameBoard, player1Name)
+                })
+                // winner(gameBoardArray)
+            }
+        }
+// winner(gameBoardArray)
+    
+return {placeMarker}
 })();
 
-// Place Marker-----------------------------------------------------------------------------------------------------------------------------------
 
-function placeMarker(gameBoardArray) {
-    let markerPlaced = true;
-    for(let i=0; i < gameBoardArray.length; i++) {
-        if(markerPlaced) {
-            gameBoardArray[i] = 'O';
-            markerPlaced = false;
-        }
+const playerFactory = (name, marker) => {
+    console.log({name, marker})
+    return {name, marker}
+}
 
-        else {
-            gameBoardArray[i] = 'X';
-            markerPlaced = true;
-        }
+function winner(gameBoard, player1Name) {
+    const winner = document.querySelector('.winner');
+    const gameLayout = document.querySelector('.gameLayout');
+    const turnTeller = document.querySelector('.turnTeller');
+    const restart = document.querySelector('.restart')
+    winner.textContent = '';
+    if(gameBoard[0].textContent === 'X' && gameBoard[1].textContent === 'X' && gameBoard[2].textContent === 'X') {
+        winner.textContent = `${player1Name} Won!`;
+        gameLayout.style.display = 'none';
+        turnTeller.style.display = 'none';
+        restart.style.display = 'block';
     }
+    else if(gameBoard[3].textContent === 'X' && gameBoard[4].textContent === 'X' && gameBoard[5].textContent === 'X') {
+        console.log('winner')
+    }
+    else if(gameBoard[6].textContent === 'X' && gameBoard[7].textContent === 'X' && gameBoard[8].textContent === 'X') {
+        console.log('winner')
+    }
+
+    restart.addEventListener('click', ()=> {
+        location.reload();
+        return false;
+    })
 }
-
-// PLay Game ----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-const playGame = (name, marker) => {
-    let testing = console.log({name, marker});
-    return (testing)
-}
-
-
-
 
 
 
