@@ -144,7 +144,7 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
 
 
 // AI STUFF -------------------------------------------------------------------------------------------------------------------------------------------------
-let i = 1;
+let curren = 0;
 function creatingAI() {
     const playerDivImg = document.querySelectorAll('.playerDivImg img');
     const changeImg = Array.from(playerDivImg);
@@ -153,15 +153,27 @@ function creatingAI() {
     const rightArrow = document.querySelector('.rightArrow');
     const leftArrow = document.querySelector('.leftArrow');
     changeImg[1].src = profileImages[0];
-    // let i = 1;
-
+    // let curren = -1;
+    let i = 1;
+    let current = profileImages.indexOf(profileImages[i]);
     rightArrow.addEventListener('click', ()=> {
-        changeImg[1].src = profileImages[i++];
-        console.log(i)
-        if(i >= profileImages.length) {
-            i = 0;
+        if(curren == 3) {
+            curren = -1;
+            console.log(curren)
         }
+        curren++
+        changeImg[1].src = profileImages[curren];
     });
+
+    leftArrow.addEventListener('click', ()=> {
+        if(curren === 0) {
+            curren = 4
+        }
+        curren--
+        changeImg[1].src = profileImages[curren]
+    })
+
+    
 }
 
 creatingAI()
