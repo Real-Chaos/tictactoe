@@ -1,6 +1,6 @@
 // Start Game ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function startGame(player2) {
+function startGame() {
     const playButton = document.querySelector('.play');
     const beforeGame = document.querySelector('.beforeGameLayout');
     const gameLayout = document.querySelector('.gameLayout');
@@ -8,7 +8,7 @@ function startGame(player2) {
     const play = playButton.addEventListener('click', ()=> {
         beforeGame.style.display = 'none';
         let player1 = playerFactory(playerName = document.querySelector('.playerDivName input').value, 'X');
-        // let player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O');
+        let player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O');
         if(player1.name === '') {
             player1.name = 'Player 1'
         }
@@ -21,7 +21,7 @@ function startGame(player2) {
     });
 }
 
-// startGame(player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O'))
+startGame()
 
 
 // Game Board ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,9 @@ const createGameBoard = (() => {
                     winner(gameBoard, player1Name, player2Name, player1Marker, player2Marker, gameBoardArray)
                 })
             }
+
         }
+        creatingAI(gameBoard)
     
 return {placeMarker}
 })();
@@ -145,7 +147,7 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
 
 // AI STUFF -------------------------------------------------------------------------------------------------------------------------------------------------
 
-function creatingAI() {
+function creatingAI(board) {
     const playerDivImg = document.querySelectorAll('.playerDivImg img');
     const changeImg = Array.from(playerDivImg);
     const profileImages = ['images/player2Icon.gif','images/jerry.gif', 'images/tom.gif', 'images/spike.gif'];
@@ -156,7 +158,7 @@ function creatingAI() {
     let current = 0;
     changeImg[1].src = profileImages[0];
     rightArrow.addEventListener('click', ()=> {
-        if(current == 3) {
+        if(current === 3) {
             current = -1;
         }
         if(current == -1) {
@@ -169,17 +171,19 @@ function creatingAI() {
         }
         switch(current) {
             case 0:
-                aiName.textContent = 'Jerry the Mouse'
+                aiName.textContent = 'Jerry the Mouse';
+                input.style.display = 'none';
                 break;
             case 1:
-                aiName.textContent = 'Tom the Cat'
+                aiName.textContent = 'Tom the Cat';
                 break;
             case 2:
-                aiName.textContent = 'Spike the Killer'
+                aiName.textContent = 'Spike the Killer';
+                break;
         }
         current++
         changeImg[1].src = profileImages[current];
-        jerry(aiName.textContent)
+        jerry(aiName.textContent, board)
         tom(aiName.textContent)
         spike(aiName.textContent)
     });
@@ -211,28 +215,31 @@ function creatingAI() {
         }
         current--
         changeImg[1].src = profileImages[current]
-        jerry(aiName.textContent)
+        jerry(aiName.textContent, board)
         tom(aiName.textContent)
         spike(aiName.textContent)
     })
     
 }
 
-creatingAI()
+// creatingAI()
 
 
-function jerry(name) {
+function jerry(name, board) {
     if(name === 'Jerry the Mouse') {
         const jerry = playerFactory('Jerry', 'O');
-        startGame(jerry)
-        
+        for(let i=0; i<Object.keys(board).length; i++) {
+            board[i].addEventListener('click', ()=> {
+                board[i].textContent = 'B';
+                console.log('hi')
+            })
+        }
     }
 }
 
 function tom(name) {
     if(name === 'Tom the Cat') {
         const tom = playerFactory('Tom', 'O');
-        startGame(tom)
         
     }
 }
@@ -240,11 +247,10 @@ function tom(name) {
 function spike(name) {
     if(name === 'Spike the Killer') {
         const spike = playerFactory('Spike', 'O');
-        startGame(spike)
         
     }
 }
 
-startGame(player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O'))
+
 
 
