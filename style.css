@@ -51,6 +51,7 @@ body {
     border: 1px solid white;
     border-radius: 8px;
     padding: 0 13px;
+    
 }
 
 h1.vs{
@@ -164,5 +165,16 @@ h1.vs{
     left: 0;
     right: 0;
     margin: auto;
+    display: none;
+}
+.player2Name {
+    position: relative;
+}
+.aiName {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
     display: none;
 }

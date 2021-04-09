@@ -149,14 +149,33 @@ function creatingAI() {
     const playerDivImg = document.querySelectorAll('.playerDivImg img');
     const changeImg = Array.from(playerDivImg);
     const profileImages = ['images/player2Icon.gif','images/jerry.gif', 'images/tom.gif', 'images/spike.gif'];
-    const bob = playerFactory('Bob', 'O');
     const rightArrow = document.querySelector('.rightArrow');
     const leftArrow = document.querySelector('.leftArrow');
-    changeImg[1].src = profileImages[0];
+    const input = document.querySelector('.player2Name input');
+    const aiName = document.querySelector('.aiName')
     let current = 0;
+    changeImg[1].src = profileImages[0];
     rightArrow.addEventListener('click', ()=> {
         if(current == 3) {
             current = -1;
+        }
+        if(current == -1) {
+            input.style.display = 'block';
+            aiName.style.display = 'none';
+        }
+        else {
+            input.style.display = 'none';
+            aiName.style.display = 'inline-block';
+        }
+        switch(current) {
+            case 0:
+                aiName.textContent = 'Jerry the Mouse'
+                break;
+            case 1:
+                aiName.textContent = 'Tom the Cat'
+                break;
+            case 2:
+                aiName.textContent = 'Spike the Killer'
         }
         current++
         changeImg[1].src = profileImages[current];
@@ -166,9 +185,34 @@ function creatingAI() {
         if(current === 0) {
             current = 4
         }
+        if(current == -1) {
+            input.style.display = 'block';
+        }
+        else {
+            input.style.display = 'none';
+            aiName.style.display = 'inline-block';
+        }
+        switch(current) {
+            case 1:
+                input.style.display = 'block'
+                aiName.style.display = 'none'
+                break;
+            case 2:
+                aiName.textContent = 'Jerry the Mouse'
+                break;
+            case 3:
+                aiName.textContent = 'Tom the Cat'
+                break;
+            case 4:
+                aiName.textContent = 'Spike the Killer'
+        }
         current--
         changeImg[1].src = profileImages[current]
     })
+
+    
+
+    
     
 }
 
