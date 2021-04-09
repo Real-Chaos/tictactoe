@@ -1,6 +1,6 @@
 // Start Game ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function startGame() {
+function startGame(player2) {
     const playButton = document.querySelector('.play');
     const beforeGame = document.querySelector('.beforeGameLayout');
     const gameLayout = document.querySelector('.gameLayout');
@@ -8,7 +8,7 @@ function startGame() {
     const play = playButton.addEventListener('click', ()=> {
         beforeGame.style.display = 'none';
         let player1 = playerFactory(playerName = document.querySelector('.playerDivName input').value, 'X');
-        let player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O');
+        // let player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O');
         if(player1.name === '') {
             player1.name = 'Player 1'
         }
@@ -21,7 +21,7 @@ function startGame() {
     });
 }
 
-startGame()
+// startGame(player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O'))
 
 
 // Game Board ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -179,6 +179,9 @@ function creatingAI() {
         }
         current++
         changeImg[1].src = profileImages[current];
+        jerry(aiName.textContent)
+        tom(aiName.textContent)
+        spike(aiName.textContent)
     });
 
     leftArrow.addEventListener('click', ()=> {
@@ -208,16 +211,40 @@ function creatingAI() {
         }
         current--
         changeImg[1].src = profileImages[current]
+        jerry(aiName.textContent)
+        tom(aiName.textContent)
+        spike(aiName.textContent)
     })
-
-    
-
-    
     
 }
 
 creatingAI()
 
 
+function jerry(name) {
+    if(name === 'Jerry the Mouse') {
+        const jerry = playerFactory('Jerry', 'O');
+        startGame(jerry)
+        
+    }
+}
+
+function tom(name) {
+    if(name === 'Tom the Cat') {
+        const tom = playerFactory('Tom', 'O');
+        startGame(tom)
+        
+    }
+}
+
+function spike(name) {
+    if(name === 'Spike the Killer') {
+        const spike = playerFactory('Spike', 'O');
+        startGame(spike)
+        
+    }
+}
+
+startGame(player2 = playerFactory(playerName = document.querySelector('.player2Name input').value, 'O'))
 
 
