@@ -162,11 +162,6 @@ function creatingAI() {
             i = 0;
         }
     });
-
-    leftArrow.addEventListener('click', ()=> {
-        let ok = profileImages.length - 1;
-        changeImg[1].src = profileImages[ok--];
-    })
 }
 
 creatingAI()
