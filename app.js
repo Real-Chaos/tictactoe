@@ -21,7 +21,7 @@ function startGame() {
     });
 }
 
-startGame()
+// startGame()
 
 
 // Game Board ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,9 +43,11 @@ const createGameBoard = (() => {
             let turn = true;
             // let addedOnce = false;
             const turnTeller = document.querySelector('.turnTeller');
+            // let emptySpaces = [];
             for(let i=0; i < Object.keys(gameBoard).length; i++) {
                 turnTeller.textContent = `${player1Name}, Make Your Move`;
                 let addedOnce = false;
+                
                 gameBoard[i].addEventListener('click', ()=> {
                     if(turn === true && addedOnce === false) {
                         gameBoardArray.push(player1Marker)
@@ -58,16 +60,24 @@ const createGameBoard = (() => {
                     }
 
                     else if(turn === false && addedOnce === false) {
-                        gameBoardArray.push(player2Marker)
-                        gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
-                        turnTeller.textContent = `${player1Name}, Make Your Move`;
-                        // console.log(gameBoardArray);
-                        addedOnce = null;
-                        turn = true;
-                       
+                        // if(player2Name !== 'Jerry') {
+                            gameBoardArray.push(player2Marker)
+                            gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
+                            turnTeller.textContent = `${player1Name}, Make Your Move`;
+                            addedOnce = null;
+                            turn = true;
+                        // }
+                        
                     }
                     winner(gameBoard, player1Name, player2Name, player1Marker, player2Marker, gameBoardArray)
                 })
+                
+                // if(player2Name === 'Jerry') {
+                //     if(gameBoard[i].textContent === '') {
+                //         emptySpaces.push(gameBoard[i])
+                //         console.log(emptySpaces)
+                //     }
+                // }
             }
 
         }
@@ -146,24 +156,28 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
 
 
 // AI STUFF -------------------------------------------------------------------------------------------------------------------------------------------------
-
+let current = 0;
 function creatingAI(board) {
     const playerDivImg = document.querySelectorAll('.playerDivImg img');
     const changeImg = Array.from(playerDivImg);
-    const profileImages = ['images/player2Icon.gif','images/jerry.gif', 'images/tom.gif', 'images/spike.gif'];
+    const profileImages = ['images/player2Icon.gif','images/jerry.gif'];
     const rightArrow = document.querySelector('.rightArrow');
     const leftArrow = document.querySelector('.leftArrow');
     const input = document.querySelector('.player2Name input');
-    const aiName = document.querySelector('.aiName')
-    let current = 0;
+    const aiName = document.querySelector('.aiName');
+    const playBtn = document.querySelector('.play');
+    const fight = document.querySelector('.fight');
+    // let current = 0;
     changeImg[1].src = profileImages[0];
     rightArrow.addEventListener('click', ()=> {
-        if(current === 3) {
+        if(current === 1) {
             current = -1;
         }
         if(current == -1) {
             input.style.display = 'block';
             aiName.style.display = 'none';
+            playBtn.style.display = 'block';
+            fight.style.display = 'none';
         }
         else {
             input.style.display = 'none';
@@ -173,24 +187,30 @@ function creatingAI(board) {
             case 0:
                 aiName.textContent = 'Jerry the Mouse';
                 input.style.display = 'none';
+                playBtn.style.display = 'none';
+                fight.style.display = 'block';
                 break;
-            case 1:
-                aiName.textContent = 'Tom the Cat';
-                break;
-            case 2:
-                aiName.textContent = 'Spike the Killer';
-                break;
+            // case 1:
+            //     aiName.textContent = 'Tom the Cat';
+            //     playBtn.style.display = 'none';
+            //     fight.style.display = 'block';
+            //     break;
+            // case 2:
+            //     aiName.textContent = 'Spike the Killer';
+            //     playBtn.style.display = 'none';
+            //     fight.style.display = 'block';
+            //     break;
         }
         current++
         changeImg[1].src = profileImages[current];
         jerry(aiName.textContent, board)
-        tom(aiName.textContent)
-        spike(aiName.textContent)
+        // tom(aiName.textContent)
+        // spike(aiName.textContent)
     });
 
     leftArrow.addEventListener('click', ()=> {
         if(current === 0) {
-            current = 4
+            current = 2
         }
         if(current == -1) {
             input.style.display = 'block';
@@ -203,21 +223,29 @@ function creatingAI(board) {
             case 1:
                 input.style.display = 'block'
                 aiName.style.display = 'none'
+                playBtn.style.display = 'block';
+                fight.style.display = 'none';
                 break;
             case 2:
                 aiName.textContent = 'Jerry the Mouse'
+                playBtn.style.display = 'none';
+                fight.style.display = 'block';
                 break;
-            case 3:
-                aiName.textContent = 'Tom the Cat'
-                break;
-            case 4:
-                aiName.textContent = 'Spike the Killer'
+            // case 3:
+            //     aiName.textContent = 'Tom the Cat'
+            //     playBtn.style.display = 'none';
+            //     fight.style.display = 'block';
+            //     break;
+            // case 4:
+            //     aiName.textContent = 'Spike the Killer'
+            //     playBtn.style.display = 'none';
+            //     fight.style.display = 'block';
         }
         current--
         changeImg[1].src = profileImages[current]
         jerry(aiName.textContent, board)
-        tom(aiName.textContent)
-        spike(aiName.textContent)
+        // tom(aiName.textContent)
+        // spike(aiName.textContent)
     })
     
 }
@@ -228,29 +256,71 @@ function creatingAI(board) {
 function jerry(name, board) {
     if(name === 'Jerry the Mouse') {
         const jerry = playerFactory('Jerry', 'O');
-        for(let i=0; i<Object.keys(board).length; i++) {
-            board[i].addEventListener('click', ()=> {
-                board[i].textContent = 'B';
-                console.log('hi')
-            })
-        }
-    }
-}
+        const fight = document.querySelector('.fight')
+        const beforeGame = document.querySelector('.beforeGameLayout');
+        const gameLayout = document.querySelector('.gameLayout');
+        gameLayout.style.display = 'none';
+        
+        fight.addEventListener('click', ()=> {
+            let turn = true;
+            let addedOnce = false;
+            beforeGame.style.display = 'none';
+            gameLayout.style.display = 'grid';
+            let player1 = playerFactory(playerName = document.querySelector('.playerDivName input').value, 'X');
+            if(player1.name === '') {
+                player1.name = 'Player 1'
+            }
 
-function tom(name) {
-    if(name === 'Tom the Cat') {
-        const tom = playerFactory('Tom', 'O');
+
+                for(let i=0; i<Object.keys(board).length; i++) {
+                    board[i].addEventListener('click', ()=> {
+
+                            board[i].textContent = 'X'
+                            turn = false;
+                            addedOnce = true;
+                            jerryMove()
+            
+                    });
+                        
+                }
+
+            function jerryMove() {
+                let emptySpaces = []
+                for(let i=0; i<Object.keys(board).length; i++) {
+                    if(board[i].textContent === '') {
+                        emptySpaces.push(board[i]);
+                    }
+                }
+                const randomJerryMove = Math.floor(Math.random() * emptySpaces.length + 1);
+                console.log(board[randomJerryMove], board[randomJerryMove].textContent)
+                if(board[randomJerryMove].textContent === '') {
+                    board[randomJerryMove].textContent = 'O'
+                }
+                else {
+                    console.log('Euk')
+                    
+                }
+            }            
+        })
         
     }
 }
 
-function spike(name) {
-    if(name === 'Spike the Killer') {
-        const spike = playerFactory('Spike', 'O');
+// function tom(name) {
+//     if(name === 'Tom the Cat') {
+//         const tom = playerFactory('Tom', 'O');
         
-    }
-}
+//     }
+// }
+
+// function spike(name) {
+//     if(name === 'Spike the Killer') {
+//         const spike = playerFactory('Spike', 'O');
+        
+//     }
+// }
 
 
 
 
+startGame()
