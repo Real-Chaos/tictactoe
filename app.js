@@ -168,6 +168,9 @@ function creatingAI(board) {
     const playBtn = document.querySelector('.play');
     const fight = document.querySelector('.fight');
     // let current = 0;
+    fight.addEventListener('click', ()=> {
+        jerry(aiName.textContent, board)
+    })
     changeImg[1].src = profileImages[0];
     rightArrow.addEventListener('click', ()=> {
         if(current === 1) {
@@ -189,6 +192,7 @@ function creatingAI(board) {
                 input.style.display = 'none';
                 playBtn.style.display = 'none';
                 fight.style.display = 'block';
+                // jerry(aiName.textContent, board)
                 break;
             // case 1:
             //     aiName.textContent = 'Tom the Cat';
@@ -203,7 +207,10 @@ function creatingAI(board) {
         }
         current++
         changeImg[1].src = profileImages[current];
-        jerry(aiName.textContent, board)
+        // fight.addEventListener('click', ()=> {
+        //     jerry(aiName.textContent, board)
+        // })
+        // jerry(aiName.textContent, board)
         // tom(aiName.textContent)
         // spike(aiName.textContent)
     });
@@ -230,6 +237,7 @@ function creatingAI(board) {
                 aiName.textContent = 'Jerry the Mouse'
                 playBtn.style.display = 'none';
                 fight.style.display = 'block';
+                // jerry(aiName.textContent, board)
                 break;
             // case 3:
             //     aiName.textContent = 'Tom the Cat'
@@ -243,7 +251,10 @@ function creatingAI(board) {
         }
         current--
         changeImg[1].src = profileImages[current]
-        jerry(aiName.textContent, board)
+        // fight.addEventListener('click', ()=> {
+        //     jerry(aiName.textContent, board)
+        // })
+        // jerry(aiName.textContent, board)
         // tom(aiName.textContent)
         // spike(aiName.textContent)
     })
@@ -261,7 +272,7 @@ function jerry(name, board) {
         const gameLayout = document.querySelector('.gameLayout');
         gameLayout.style.display = 'none';
         
-        fight.addEventListener('click', ()=> {
+        // fight.addEventListener('click', ()=> {
             let turn = true;
             let addedOnce = false;
             beforeGame.style.display = 'none';
@@ -298,10 +309,9 @@ function jerry(name, board) {
                 }
                 else {
                     console.log('Euk')
-                    
                 }
             }            
-        })
+        // })
         
     }
 }
