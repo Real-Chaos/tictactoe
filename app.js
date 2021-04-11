@@ -21,7 +21,7 @@ function startGame() {
     });
 }
 
-// startGame()
+
 
 
 // Game Board ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,9 +41,9 @@ const createGameBoard = (() => {
 
     const placeMarker = (player1Name, player2Name, player1Marker, player2Marker) => {
             let turn = true;
-            // let addedOnce = false;
+     
             const turnTeller = document.querySelector('.turnTeller');
-            // let emptySpaces = [];
+     
             for(let i=0; i < Object.keys(gameBoard).length; i++) {
                 turnTeller.textContent = `${player1Name}, Make Your Move`;
                 let addedOnce = false;
@@ -53,31 +53,26 @@ const createGameBoard = (() => {
                         gameBoardArray.push(player1Marker)
                         gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
                         turnTeller.textContent = `${player2Name}, Make Your Move`;
-                        // console.log(gameBoardArray)
+                
                         turn = false;
                         addedOnce = true;
                         
                     }
 
                     else if(turn === false && addedOnce === false) {
-                        // if(player2Name !== 'Jerry') {
+           
                             gameBoardArray.push(player2Marker)
                             gameBoard[i].textContent = gameBoardArray[gameBoardArray.length - 1]
                             turnTeller.textContent = `${player1Name}, Make Your Move`;
                             addedOnce = null;
                             turn = true;
-                        // }
+
                         
                     }
                     winner(gameBoard, player1Name, player2Name, player1Marker, player2Marker, gameBoardArray)
                 })
                 
-                // if(player2Name === 'Jerry') {
-                //     if(gameBoard[i].textContent === '') {
-                //         emptySpaces.push(gameBoard[i])
-                //         console.log(emptySpaces)
-                //     }
-                // }
+
             }
 
         }
@@ -172,7 +167,7 @@ function creatingAI(board, boardArray) {
     const aiName = document.querySelector('.aiName');
     const playBtn = document.querySelector('.play');
     const fight = document.querySelector('.fight');
-    // let current = 0;
+ 
     fight.addEventListener('click', ()=> {
         jerry(aiName.textContent, board, boardArray)
     })
@@ -197,27 +192,13 @@ function creatingAI(board, boardArray) {
                 input.style.display = 'none';
                 playBtn.style.display = 'none';
                 fight.style.display = 'block';
-                // jerry(aiName.textContent, board)
+
                 break;
-            // case 1:
-            //     aiName.textContent = 'Tom the Cat';
-            //     playBtn.style.display = 'none';
-            //     fight.style.display = 'block';
-            //     break;
-            // case 2:
-            //     aiName.textContent = 'Spike the Killer';
-            //     playBtn.style.display = 'none';
-            //     fight.style.display = 'block';
-            //     break;
+
         }
         current++
         changeImg[1].src = profileImages[current];
-        // fight.addEventListener('click', ()=> {
-        //     jerry(aiName.textContent, board)
-        // })
-        // jerry(aiName.textContent, board)
-        // tom(aiName.textContent)
-        // spike(aiName.textContent)
+
     });
 
     leftArrow.addEventListener('click', ()=> {
@@ -242,26 +223,10 @@ function creatingAI(board, boardArray) {
                 aiName.textContent = 'Jerry the Mouse'
                 playBtn.style.display = 'none';
                 fight.style.display = 'block';
-                // jerry(aiName.textContent, board)
                 break;
-            // case 3:
-            //     aiName.textContent = 'Tom the Cat'
-            //     playBtn.style.display = 'none';
-            //     fight.style.display = 'block';
-            //     break;
-            // case 4:
-            //     aiName.textContent = 'Spike the Killer'
-            //     playBtn.style.display = 'none';
-            //     fight.style.display = 'block';
         }
         current--
         changeImg[1].src = profileImages[current]
-        // fight.addEventListener('click', ()=> {
-        //     jerry(aiName.textContent, board)
-        // })
-        // jerry(aiName.textContent, board)
-        // tom(aiName.textContent)
-        // spike(aiName.textContent)
     })
     
 }
@@ -276,10 +241,7 @@ function jerry(name, board, boardArray) {
         const beforeGame = document.querySelector('.beforeGameLayout');
         const gameLayout = document.querySelector('.gameLayout');
         gameLayout.style.display = 'none';
-        // let turn = true;
-        // let addedOnce = false;
-        
-        // fight.addEventListener('click', ()=> {
+
             let turn = true;
             let addedOnce = false;
             let boardArray = []
@@ -292,8 +254,7 @@ function jerry(name, board, boardArray) {
 
 
                 for(let i=0; i<Object.keys(board).length; i++) {
-                    // let turn = true;
-                    // let addedOnce = false;
+
                     board[i].addEventListener('click', ()=> {
                             if(board[i].textContent === '') {
                             turn = false;
@@ -323,29 +284,12 @@ function jerry(name, board, boardArray) {
                     emptyBoard[randomJerryMove].textContent = 'O'
                     boardArray.push(emptyBoard[randomJerryMove].textContent)
                 }
-                
-                // else {
-                //     boardArray.length = 9
-                // }
+
                 winner(board, playerName = document.querySelector('.playerDivName input').value, jerry.name, 'X', 'O', boardArray)
             }            
         
     }
 }
-
-// function tom(name) {
-//     if(name === 'Tom the Cat') {
-//         const tom = playerFactory('Tom', 'O');
-        
-//     }
-// }
-
-// function spike(name) {
-//     if(name === 'Spike the Killer') {
-//         const spike = playerFactory('Spike', 'O');
-        
-//     }
-// }
 
 
 
