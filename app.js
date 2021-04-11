@@ -81,7 +81,7 @@ const createGameBoard = (() => {
             }
 
         }
-        creatingAI(gameBoard)
+        creatingAI(gameBoard, gameBoardArray)
     
 return {placeMarker}
 })();
@@ -105,7 +105,12 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
     }
 
     function player1Won() {
-        winner.textContent = `${player1Name} Won!`;
+        if(player1Name === '') {
+            winner.textContent = `Player 1 Won!`;
+        }
+        else {
+            winner.textContent = `${player1Name} Won!`;
+        }
         afterWin()
     }
 
@@ -143,7 +148,7 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
             player2Won()
         }
 
-        else if(gameBoardArray.length === 9 && winner.textContent !== `${player1Name} Won!` && winner.textContent !== `${player2Name} Won!`) {
+        else if(gameBoardArray.length === 9 && winner.textContent !== `${player1Name} Won!` && winner.textContent !== `${player2Name} Won!` && winner.textContent !== `Player 1 Won!`) {
             tie()
         }
     }
@@ -157,7 +162,7 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
 
 // AI STUFF -------------------------------------------------------------------------------------------------------------------------------------------------
 let current = 0;
-function creatingAI(board) {
+function creatingAI(board, boardArray) {
     const playerDivImg = document.querySelectorAll('.playerDivImg img');
     const changeImg = Array.from(playerDivImg);
     const profileImages = ['images/player2Icon.gif','images/jerry.gif'];
@@ -169,7 +174,7 @@ function creatingAI(board) {
     const fight = document.querySelector('.fight');
     // let current = 0;
     fight.addEventListener('click', ()=> {
-        jerry(aiName.textContent, board)
+        jerry(aiName.textContent, board, boardArray)
     })
     changeImg[1].src = profileImages[0];
     rightArrow.addEventListener('click', ()=> {
@@ -264,17 +269,20 @@ function creatingAI(board) {
 // creatingAI()
 
 
-function jerry(name, board) {
+function jerry(name, board, boardArray) {
     if(name === 'Jerry the Mouse') {
         const jerry = playerFactory('Jerry', 'O');
         const fight = document.querySelector('.fight')
         const beforeGame = document.querySelector('.beforeGameLayout');
         const gameLayout = document.querySelector('.gameLayout');
         gameLayout.style.display = 'none';
+        // let turn = true;
+        // let addedOnce = false;
         
         // fight.addEventListener('click', ()=> {
             let turn = true;
             let addedOnce = false;
+            let boardArray = []
             beforeGame.style.display = 'none';
             gameLayout.style.display = 'grid';
             let player1 = playerFactory(playerName = document.querySelector('.playerDivName input').value, 'X');
@@ -284,12 +292,16 @@ function jerry(name, board) {
 
 
                 for(let i=0; i<Object.keys(board).length; i++) {
+                    // let turn = true;
+                    // let addedOnce = false;
                     board[i].addEventListener('click', ()=> {
-
-                            board[i].textContent = 'X'
+                            if(board[i].textContent === '') {
                             turn = false;
                             addedOnce = true;
+                            boardArray.push('X')
+                            board[i].textContent = 'X'
                             jerryMove()
+                            }
             
                     });
                         
@@ -297,21 +309,26 @@ function jerry(name, board) {
 
             function jerryMove() {
                 let emptySpaces = []
+                let emptyBoard = []
                 for(let i=0; i<Object.keys(board).length; i++) {
                     if(board[i].textContent === '') {
-                        emptySpaces.push(board[i]);
+                        emptySpaces.push(board[i])
                     }
                 }
-                const randomJerryMove = Math.floor(Math.random() * emptySpaces.length + 1);
-                console.log(board[randomJerryMove], board[randomJerryMove].textContent)
-                if(board[randomJerryMove].textContent === '') {
-                    board[randomJerryMove].textContent = 'O'
+                for(let i=0; i<emptySpaces.length; i++) {
+                    emptyBoard[i] = emptySpaces[i]
                 }
-                else {
-                    console.log('Euk')
+                const randomJerryMove = Math.floor(Math.random() * emptySpaces.length);
+                if(emptySpaces.length !== 0) {
+                    emptyBoard[randomJerryMove].textContent = 'O'
+                    boardArray.push(emptyBoard[randomJerryMove].textContent)
                 }
+                
+                // else {
+                //     boardArray.length = 9
+                // }
+                winner(board, playerName = document.querySelector('.playerDivName input').value, jerry.name, 'X', 'O', boardArray)
             }            
-        // })
         
     }
 }
