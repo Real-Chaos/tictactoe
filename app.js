@@ -156,7 +156,7 @@ function winner(gameBoard, player1Name, player2Name, player1Marker, player2Marke
 
 
 // AI STUFF -------------------------------------------------------------------------------------------------------------------------------------------------
-let current = 0;
+// let current = 0;
 function creatingAI(board, boardArray) {
     const playerDivImg = document.querySelectorAll('.playerDivImg img');
     const changeImg = Array.from(playerDivImg);
@@ -166,6 +166,7 @@ function creatingAI(board, boardArray) {
     const input = document.querySelector('.player2Name input');
     const aiName = document.querySelector('.aiName');
     const playBtn = document.querySelector('.play');
+    let current = 0;
     const fight = document.querySelector('.fight');
  
     fight.addEventListener('click', ()=> {
