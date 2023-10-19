@@ -1,0 +1,94 @@
+:root {
+  --bg-color: #4c5c68;
+  --text-color: #b0e4db;
+  --body-bg: #c5c3c6;
+  --marker-color: #46494b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--body-bg);
+}
+
+.header {
+  background: var(--bg-color);
+  color: var(--text-color);
+  text-align: center;
+  padding: 25px 0;
+  font-size: 30px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.game-container {
+  display: grid;
+  justify-items: center;
+}
+
+.game-container h2 {
+  color: var(--marker-color);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+  margin-top: 50px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: solid #555;
+  width: 400px;
+}
+
+.game-board div {
+  border: solid #555;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 40px;
+  font-weight: bolder;
+  color: var(--marker-color);
+  cursor: pointer;
+  background: #ededee;
+}
+
+.game-board div:hover {
+  background-color: #d8e4e9;
+}
+
+.game-container button {
+  margin-top: 50px;
+  border: solid black;
+  background-color: var(--bg-color);
+  outline: none;
+  border: none;
+  color: var(--text-color);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bolder;
+  font-size: 20px;
+  width: 200px;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  background-color: var(--bg-color);
+  width: 100%;
+  padding: 20px 0;
+  color: var(--text-color);
+  font-size: 20px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
