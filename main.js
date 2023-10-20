@@ -17,7 +17,7 @@ const gameBoard = {
   },
 }
 
-const gameFlow = {
+const playerObject = {
   playerX: createPlayer('Player X', 'X'),
   playerO: createPlayer('Player O', 'O'),
   playerTurn: '',
@@ -30,6 +30,10 @@ const gameFlow = {
     } else this.playerTurn = this.playerX
     return this.playerTurn
   },
+  changePlayerTurnDom: function() {this.playerTurnDom.textContent = this.playerTurn}
+}
+
+const gameFlow = {
   winner: null,
   winningCases: {
     case1: [0, 1, 2],
@@ -51,26 +55,18 @@ const gameFlow = {
 
     const checker = (arr, target) => target.every((c) => arr.includes(c))
 
-    const arr = ['Nano', 'Volvo', 'BMW', 'Nano', 'VW', 'Nano'].reduce(
-      (a, e, i) => {
-        if (e === 'Nano') a.push(i)
-        return a
-      },
-      []
-    )
-
     for (keys in this.winningCases) {
       const checkForX = checker(this.indexOfX, this.winningCases[keys])
       const checkForO = checker(this.indexOfO, this.winningCases[keys])
 
       if (checkForX) {
-        this.winner = this.playerX.name
+        this.winner = playerObject.playerX.name
         return this.winner
       } else if (checkForO) {
-        this.winner = this.playerO.name
+        this.winner = playerObject.playerO.name
         return this.winner
-      } else if(board.length === 9) {
-        this.winner = "Nobody"
+      } else if (board.length === 9) {
+        this.winner = 'Nobody'
         return this.winner
       }
     }
@@ -83,12 +79,13 @@ const gameFlow = {
     gameBoard.clearBoard()
     this.indexOfX = []
     this.indexOfO = []
-    this.playerTurn = this.playerX
+    playerObject.playerTurn = playerObject.playerX
+    playerObject.changePlayerTurnDom()
 
     gameBoard.boardDOM.forEach((div) => {
       div.textContent = ''
     })
-    gameFlow.playerTurnDom.textContent = this.playerTurn.name
+    playerObject.playerTurnDom.textContent = playerObject.playerTurn.name
   },
 }
 
@@ -99,7 +96,7 @@ const addMarker = (function () {
       div.textContent.length < 1 &&
       gameFlow.winner === null
     ) {
-      const playerTurn = gameFlow.checkPlayerTurn()
+      const playerTurn = playerObject.checkPlayerTurn()
       gameBoard.board.push(playerTurn.marker)
       div.textContent = playerTurn.marker
       const winner = gameFlow.checkWinner(
@@ -121,9 +118,9 @@ const addMarker = (function () {
 
 const handleTurnsDOM = () => {
   if (gameFlow.winner) {
-    gameFlow.playerTurnDom.textContent = `${gameFlow.winner} won!`
+    playerObject.playerTurnDom.textContent = `${gameFlow.winner} won!`
   } else {
-    gameFlow.playerTurnDom.textContent = gameFlow.checkPlayerTurn().name
+    playerObject.playerTurnDom.textContent = playerObject.checkPlayerTurn().name
   }
 }
 
