@@ -69,6 +69,9 @@ const gameFlow = {
       } else if (checkForO) {
         this.winner = this.playerO.name
         return this.winner
+      } else if(board.length === 9) {
+        this.winner = "Nobody"
+        return this.winner
       }
     }
   },
@@ -80,6 +83,7 @@ const gameFlow = {
     gameBoard.clearBoard()
     this.indexOfX = []
     this.indexOfO = []
+    this.playerTurn = this.playerX
 
     gameBoard.boardDOM.forEach((div) => {
       div.textContent = ''
